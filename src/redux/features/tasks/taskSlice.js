@@ -10,10 +10,14 @@ const taskSlice = createSlice({
   reducers: {
     addTask: (state, { payload }) => {
       if (state.task.length === 0) {
-        state.task.push({ id: 1, ...payload });
+        state.task.push({ id: 1, status: "pending", ...payload });
       } else {
         // state.task.push({ id: state.task.length + 1, ...payload });
-        state.task.push({ id: state.task.at(-1).id + 1, ...payload });
+        state.task.push({
+          id: state.task.at(-1).id + 1,
+          status: "pending",
+          ...payload,
+        });
       }
     },
   },
