@@ -3,21 +3,21 @@ import {
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStatus } from "../../redux/features/tasks/taskSlice";
-import { useState } from "react";
+import { updateStatus, userTask } from "../../redux/features/tasks/taskSlice";
+import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import TaskCard from "./TaskCard";
 
 const MyTasks = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTask, setModalTask] = useState(null);
-  const { task } = useSelector((state) => state.taskStore);
-  // const { user } = useSelector((state) => state.userStore);
+  const { task, specificTask } = useSelector((state) => state.taskStore);
+  const { name } = useSelector((state) => state.userStore);
   const dispatch = useDispatch();
 
-  const myTask = task.filter(
-    (item) => item?.assignedTo === "Borhan Uddin" && item?.status === "pending"
-  );
+  useEffect(() => {
+    dispatch(userTask(name));
+  }, [name, dispatch, task]);
 
   const handleModalOpen = (id) => {
     const selectedTask = task.find((item) => item.id === id);
@@ -32,7 +32,7 @@ const MyTasks = () => {
       </Modal>
       <h1 className="text-xl my-3">My Tasks</h1>
       <div className=" h-[750px] overflow-auto space-y-3">
-        {myTask.map((task) => {
+        {specificTask.map((task) => {
           return (
             <>
               <div
