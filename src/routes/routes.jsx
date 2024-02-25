@@ -6,6 +6,7 @@ import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
 import Posts from "../pages/Posts";
 import PostDetails from "../pages/PostDetails";
+import Users from "../pages/Users";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,10 @@ const routes = createBrowserRouter([
       {
         path: "/post/:id",
         element: <PostDetails />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
       },
     ],
   },

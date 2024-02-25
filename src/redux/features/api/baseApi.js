@@ -13,12 +13,25 @@ const baseApi = createApi({
       query: (id) => `/posts/${id}`,
     }),
     getUser: builder.query({
-      query: () => `/user`,
+      query: () => ({
+        url: `/users`,
+      }),
+    }),
+    setPost: builder.mutation({
+      query: (post) => ({
+        url: `/posts`,
+        method: "POST",
+        body: post,
+      }),
     }),
   }),
 });
 
-export const { useGetPostQuery, useGetUserQuery, useGetPostByIdQuery } =
-  baseApi;
+export const {
+  useGetPostQuery,
+  useGetUserQuery,
+  useGetPostByIdQuery,
+  useSetPostMutation,
+} = baseApi;
 
 export default baseApi;

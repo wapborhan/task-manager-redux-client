@@ -1,8 +1,23 @@
-import { useGetPostQuery } from "../redux/features/api/baseAPi";
+import { useForm } from "react-hook-form";
+import {
+  useGetPostQuery,
+  useSetPostMutation,
+} from "../redux/features/api/baseAPi";
 import { NavLink } from "react-router-dom";
 
 const Posts = () => {
   const { data, isLoading } = useGetPostQuery();
+  const [setPost, { data: postData, isSuccess }] = useSetPostMutation();
+  const { register, handleSubmit, reset } = useForm();
+
+  if (isSuccess) {
+    alert(`PostData \n \n ${postData.post}`);
+  }
+
+  const onSubmit = (data) => {
+    reset();
+    setPost(data);
+  };
 
   if (isLoading) {
     return <span>Loading....</span>;
@@ -24,6 +39,24 @@ const Posts = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="postDat">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col mb-5">
+              <textarea
+                type="text"
+                id="post"
+                {...register("post")}
+                className="w-full rounded-md"
+              />
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button type="submit" className="btn btn-primary">
+                Post
+              </button>
+            </div>
+          </form>
         </div>
         <div className="posts grid lg:grid-cols-3 gap-4 flex-wrap my-8">
           {data.map((item) => {
