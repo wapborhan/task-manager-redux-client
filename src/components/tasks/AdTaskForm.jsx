@@ -58,7 +58,7 @@ const AdTaskForm = ({ setIsOpen }) => {
           </label>
           <select
             id="priority"
-            {...register("assignTo")}
+            {...register("assignedTo")}
             className="w-full rounded-md"
           >
             <option defaultValue value="Borhan Uddin">
