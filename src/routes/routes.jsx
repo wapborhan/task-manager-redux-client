@@ -7,14 +7,26 @@ import Profile from "../pages/Profile";
 import Posts from "../pages/Posts";
 import PostDetails from "../pages/PostDetails";
 import Users from "../pages/Users";
+import PrivateRoute from "./PrivateRoute";
+import Archive from "../pages/Archive";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
         element: <Tasks />,
+      },
+      {
+        path: "/archive",
+        element: <Archive />,
       },
       {
         path: "/chat",
@@ -41,6 +53,14 @@ const routes = createBrowserRouter([
         element: <Users />,
       },
     ],
+  },
+  {
+    path: "/signin",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 ]);
 

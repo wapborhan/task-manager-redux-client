@@ -15,8 +15,12 @@ const Posts = () => {
   }
 
   const onSubmit = (data) => {
-    reset();
-    setPost(data);
+    if (data.post.length === 0) {
+      alert("Write Something...");
+    } else {
+      reset();
+      setPost(data);
+    }
   };
 
   if (isLoading) {
