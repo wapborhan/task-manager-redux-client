@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useGetPostByIdQuery } from "../redux/features/api/baseAPi";
+import Loading from "../components/layouts/Loading";
 
 const PostDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetPostByIdQuery(id);
-  console.log(data);
+  // console.log(data);
   return (
     <div className="container mx-auto px-10 py-10">
       {!isLoading ? (
@@ -14,7 +15,7 @@ const PostDetails = () => {
           {data?.body}
         </div>
       ) : (
-        "Loading"
+        <Loading />
       )}
     </div>
   );

@@ -11,7 +11,7 @@ const Archive = () => {
       <div>
         <h1 className="text-xl font-semibold mb-10">Archive board</h1>
       </div>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid lg:grid-cols-4 grid-cols-1 gap-5">
         {archiveTasks?.map((item) => (
           <TaskCard key={item.id} task={item} />
         ))}

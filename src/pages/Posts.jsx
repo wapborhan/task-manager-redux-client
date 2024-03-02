@@ -4,6 +4,7 @@ import {
   useSetPostMutation,
 } from "../redux/features/api/baseAPi";
 import { NavLink } from "react-router-dom";
+import Loading from "../components/layouts/Loading";
 
 const Posts = () => {
   const { data, isLoading } = useGetPostQuery();
@@ -24,7 +25,7 @@ const Posts = () => {
   };
 
   if (isLoading) {
-    return <span>Loading....</span>;
+    return <Loading />;
   }
 
   return (

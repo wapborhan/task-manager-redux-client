@@ -17,8 +17,8 @@ const Tasks = () => {
 
   return (
     <div className="h-screens grid grid-cols-12">
-      <div className="col-span-9 px-10 pt-10">
-        <div className="flex justify-between items-center">
+      <div className="lg:col-span-9 col-span-12 px-10 pt-10">
+        <div className="flex flex-wrap gap-3 justify-between items-center">
           <div>
             <h1 className="font-semibold text-3xl">Tasks</h1>
           </div>
@@ -49,7 +49,7 @@ const Tasks = () => {
             </MenuDropdown>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-5 mt-10">
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-5 mt-10">
           <div className="relative h-[550px] overflow-auto">
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>Up Next</h1>
@@ -91,7 +91,7 @@ const Tasks = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-3 border-l-2 border-secondary/20 px-10 pt-10">
+      <div className="lg:col-span-3 col-span-12 border-l-2 border-secondary/20 px-10 pt-10">
         <div>
           <h1 className="text-xl">Members</h1>
           <div className="flex gap-3 mt-3">
