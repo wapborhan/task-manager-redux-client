@@ -19,6 +19,8 @@ const MyTasks = () => {
     dispatch(userTask(name));
   }, [name, dispatch, task]);
 
+  console.log(task);
+
   const handleModalOpen = (id) => {
     const selectedTask = task.find((item) => item.id === id);
     setModalTask(selectedTask);

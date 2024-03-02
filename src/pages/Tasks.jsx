@@ -16,7 +16,7 @@ const Tasks = () => {
   const doneTask = task.filter((item) => item.status === "done");
 
   return (
-    <div className="h-screen grid grid-cols-12">
+    <div className="h-screens grid grid-cols-12">
       <div className="col-span-9 px-10 pt-10">
         <div className="flex justify-between items-center">
           <div>
@@ -50,7 +50,7 @@ const Tasks = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-5 mt-10">
-          <div className="relative h-[800px] overflow-auto">
+          <div className="relative h-[550px] overflow-auto">
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>Up Next</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">
@@ -63,7 +63,7 @@ const Tasks = () => {
               ))}
             </div>
           </div>
-          <div className="relative h-[800px] overflow-auto">
+          <div className="relative h-[550px] overflow-auto">
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>In Progress</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">
@@ -76,7 +76,7 @@ const Tasks = () => {
               ))}
             </div>
           </div>
-          <div className="relative h-[800px] overflow-auto">
+          <div className="relative h-[550px] overflow-auto">
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>Done</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">

@@ -28,7 +28,7 @@ const Posts = () => {
   }
 
   return (
-    <div className="h-screen grid grid-cols-12">
+    <div className="h-screens grid grid-cols-12">
       <div className="col-span-12 lg:px-10 px-3 pt-10">
         <div className="flex justify-between items-center">
           <div>

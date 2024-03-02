@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import TaskCard from "../components/tasks/TaskCard";
 
 const Archive = () => {
-  const { tasks } = useSelector((state) => state.tasksSlice);
+  const { task } = useSelector((state) => state.taskStore);
 
-  const archiveTasks = tasks.filter((item) => item.status == "archive");
+  const archiveTasks = task.filter((item) => item.status == "archive");
 
   return (
     <div className="p-10">
