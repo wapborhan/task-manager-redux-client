@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import loginImage from "../assets/image/login.svg";
 import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../redux/features/user/userSlice";
+import { toast, Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const { handleSubmit, register, control } = useForm();
@@ -9,6 +12,11 @@ const Signup = () => {
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
+
+  const dispatch = useDispatch();
+  const { email, isError, isLoading, error } = useSelector(
+    (state) => state.userStore
+  );
 
   useEffect(() => {
     if (
@@ -24,10 +32,23 @@ const Signup = () => {
     }
   }, [password, confirmPassword]);
 
-  const onSubmit = ({ name, email, password }) => {
+  const onSubmit = ({ name, email, password, photoLink }) => {
     // Email Password signup
-    console.log(name, email, password);
+    dispatch(createUser({ email, password, name, photoLink }));
+    setTimeout(() => {}, 2000);
   };
+
+  useEffect(() => {
+    if (isError && error) {
+      toast.error(error);
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if (!isLoading && email) {
+      navigate("/");
+    }
+  }, [isLoading, email, navigate]);
 
   const handleGoogleLogin = () => {
     // Google Login
@@ -35,6 +56,7 @@ const Signup = () => {
 
   return (
     <div className="flex max-w-7xl mx-auto h-screen items-center">
+      <Toaster />
       <div className="w-1/2">
         <img src={loginImage} className="h-full w-full" alt="" />
       </div>
@@ -43,11 +65,22 @@ const Signup = () => {
           <h1 className="mb-10 font-medium text-2xl">Sign up</h1>
           <form className="space-y-5 w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col items-start">
+              <label htmlFor="email">Photo Url</label>
+              <input
+                type="text"
+                id="photo"
+                className="w-full rounded-md"
+                defaultValue="https://www.wapborhan.com/images/banner.jpg"
+                {...register("photoLink")}
+              />
+            </div>
+            <div className="flex flex-col items-start">
               <label htmlFor="email">Name</label>
               <input
                 type="text"
                 id="name"
                 className="w-full rounded-md"
+                defaultValue="Borhan Uddin"
                 {...register("name")}
               />
             </div>
@@ -56,6 +89,7 @@ const Signup = () => {
               <input
                 type="email"
                 id="email"
+                defaultValue="borhanuddin4238@gmail.com"
                 className="w-full rounded-md"
                 {...register("email")}
               />
@@ -65,6 +99,7 @@ const Signup = () => {
               <input
                 type="password"
                 id="password"
+                defaultValue="123456"
                 className="w-full rounded-md"
                 {...register("password")}
               />
@@ -74,6 +109,7 @@ const Signup = () => {
               <input
                 type="password"
                 id="confirm-password"
+                defaultValue="123456"
                 className="w-full rounded-md"
                 {...register("confirmPassword")}
               />
@@ -82,7 +118,7 @@ const Signup = () => {
               <button
                 type="submit"
                 className="btn btn-primary w-full disabled:bg-gray-300 disabled:cursor-not-allowed"
-                disabled={disabled}
+                // disabled={disabled}
               >
                 Sign up
               </button>
