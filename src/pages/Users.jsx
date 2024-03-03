@@ -1,4 +1,4 @@
-import { useGetUserQuery } from "../redux/features/api/baseAPi";
+import { useGetUserQuery } from "../redux/features/api/testAPI";
 
 const Users = () => {
   const { data, isLoading } = useGetUserQuery();

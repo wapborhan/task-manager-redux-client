@@ -6,15 +6,22 @@ import Modal from "../components/ui/Modal";
 import AdTaskForm from "../components/tasks/AdTaskForm";
 import { useSelector } from "react-redux";
 import MenuDropdown from "../components/ui/MenuDropdown";
+import { useGetTaskQuery } from "../redux/features/tasks/taskApi";
 
 const Tasks = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { task } = useSelector((state) => state.taskStore);
+  // const { task } = useSelector((state) => state.taskStore);
+  const { data: task } = useGetTaskQuery(undefined, {
+    // pollingInterval: 30000,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnReconnect: true,
+    // refetchOnFocus: true,
+  });
   const { avatar } = useSelector((state) => state.userStore);
 
-  const pendingTask = task.filter((item) => item.status === "pending");
-  const runningTask = task.filter((item) => item.status === "running");
-  const doneTask = task.filter((item) => item.status === "done");
+  const pendingTask = task?.filter((item) => item?.status === "pending");
+  const runningTask = task?.filter((item) => item?.status === "running");
+  const doneTask = task?.filter((item) => item?.status === "done");
 
   return (
     <div className="h-screens grid grid-cols-12">
@@ -63,7 +70,7 @@ const Tasks = () => {
               </p>
             </div>
             <div className="space-y-3">
-              {pendingTask.map((item) => (
+              {pendingTask?.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>
@@ -72,11 +79,11 @@ const Tasks = () => {
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>In Progress</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">
-                {runningTask.length}
+                {runningTask?.length}
               </p>
             </div>
             <div className="space-y-3">
-              {runningTask.map((item) => (
+              {runningTask?.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>
@@ -85,11 +92,11 @@ const Tasks = () => {
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
               <h1>Done</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">
-                {doneTask.length}
+                {doneTask?.length}
               </p>
             </div>
             <div className="space-y-3">
-              {doneTask.map((item) => (
+              {doneTask?.map((item) => (
                 <TaskCard key={item?.id} task={item} />
               ))}
             </div>

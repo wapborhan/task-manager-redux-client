@@ -1,10 +1,16 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import TaskCard from "../components/tasks/TaskCard";
+import { useGetTaskQuery } from "../redux/features/tasks/taskApi";
 
 const Archive = () => {
-  const { task } = useSelector((state) => state.taskStore);
-
-  const archiveTasks = task.filter((item) => item.status == "archive");
+  // const { task } = useSelector((state) => state.taskStore);
+  const { data: task } = useGetTaskQuery(undefined, {
+    // pollingInterval: 30000,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnReconnect: true,
+    // refetchOnFocus: true,
+  });
+  const archiveTasks = task?.filter((item) => item?.status == "archive");
 
   return (
     <div className="p-10">

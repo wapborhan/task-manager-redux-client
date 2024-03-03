@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetPostByIdQuery } from "../redux/features/api/baseAPi";
+import { useGetPostByIdQuery } from "../redux/features/api/testAPI";
 import Loading from "../components/layouts/Loading";
 
 const PostDetails = () => {

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import {
   useGetPostQuery,
   useSetPostMutation,
-} from "../redux/features/api/baseAPi";
+} from "../redux/features/api/testAPI";
 import { NavLink } from "react-router-dom";
 import Loading from "../components/layouts/Loading";
 
