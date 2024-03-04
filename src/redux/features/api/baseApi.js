@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseApi = createApi({
@@ -6,7 +7,7 @@ const baseApi = createApi({
     baseUrl: "http://localhost:3300",
   }),
   tagTypes: ["Task"],
-
+  /*eslint no-unused-vars: "error"*/
   endpoints: (builder) => ({}),
 });
 
