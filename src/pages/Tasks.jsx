@@ -7,6 +7,7 @@ import AdTaskForm from "../components/tasks/AdTaskForm";
 import { useSelector } from "react-redux";
 import MenuDropdown from "../components/ui/MenuDropdown";
 import { useGetTaskQuery } from "../redux/features/tasks/taskApi";
+import { Toaster } from "react-hot-toast";
 
 const Tasks = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,7 @@ const Tasks = () => {
 
   return (
     <div className="h-screens grid grid-cols-12">
+      <Toaster />
       <div className="lg:col-span-9 col-span-12 px-10 pt-10">
         <div className="flex flex-wrap gap-3 justify-between items-center">
           <div>

@@ -1,18 +1,33 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { addTask } from "../../redux/features/tasks/taskSlice";
+import { useAddTaskMutation } from "../../redux/features/tasks/taskApi";
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
 const AdTaskForm = ({ setIsOpen }) => {
   const { register, handleSubmit, reset } = useForm();
-  const dispatch = useDispatch();
+
+  const [setTask, { data, error }] = useAddTaskMutation();
 
   const onCancle = () => {
     reset();
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data?.acknowledged === true) {
+      toast.success("Task Added.");
+    }
+  }, [data]);
+
   const onSubmit = (data) => {
-    dispatch(addTask(data));
+    setTask({ ...data, status: "pending" });
+
     onCancle();
   };
 

@@ -6,9 +6,14 @@ const taskApi = baseApi.injectEndpoints({
       query: () => `/tasks`,
       providesTags: ["Task"],
     }),
-    // getPostById: builder.query({
-    //   query: (id) => `/tasks/${id}`,
-    // }),
+    addTask: builder.mutation({
+      query: (task) => ({
+        url: "/tasks",
+        method: "POST",
+        body: task,
+      }),
+      invalidatesTags: ["Task"],
+    }),
     updateStatus: builder.mutation({
       query: ({ id, data }) => ({
         url: `/tasks/${id}`,
@@ -20,4 +25,5 @@ const taskApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetTaskQuery, useUpdateStatusMutation } = taskApi;
+export const { useGetTaskQuery, useAddTaskMutation, useUpdateStatusMutation } =
+  taskApi;
