@@ -27,19 +27,6 @@ const MyTasks = () => {
 
   const [updateTask, { data, error }] = useUpdateStatusMutation();
 
-  // console.log(data);
-  // console.log(error);
-
-  let updatedStatus;
-
-  if (task?.status === "pending") {
-    updatedStatus = "running";
-  } else if (task?.status === "running") {
-    updatedStatus = "done";
-  } else {
-    updatedStatus = "archive";
-  }
-
   return (
     <div>
       <Modal isOpen={modalOpen} setIsOpen={setModalOpen} title="My Task">
@@ -50,35 +37,33 @@ const MyTasks = () => {
         {task &&
           specificTask.map((task) => {
             return (
-              <>
-                <div
-                  key={task?.id}
-                  className="bg-secondary/10 rounded-md p-3 flex justify-between"
-                >
-                  <h1>{task?.title}</h1>
-                  <div className="flex gap-3">
-                    <button
-                      className="grid place-content-center"
-                      onClick={() => handleModalOpen(task.id)}
-                      title="Details"
-                    >
-                      <DocumentMagnifyingGlassIcon className="w-5 h-5 text-primary" />
-                    </button>
-                    <button
-                      className="grid place-content-center"
-                      onClick={() =>
-                        updateTask({
-                          id: task?._id,
-                          data: { status: "done" },
-                        })
-                      }
-                      title="Done"
-                    >
-                      <CheckIcon className="w-5 h-5 text-primary" />
-                    </button>
-                  </div>
+              <div
+                key={task?.id}
+                className="bg-secondary/10 rounded-md p-3 flex justify-between"
+              >
+                <h1>{task?.title}</h1>
+                <div className="flex gap-3">
+                  <button
+                    className="grid place-content-center"
+                    onClick={() => handleModalOpen(task.id)}
+                    title="Details"
+                  >
+                    <DocumentMagnifyingGlassIcon className="w-5 h-5 text-primary" />
+                  </button>
+                  <button
+                    className="grid place-content-center"
+                    onClick={() =>
+                      updateTask({
+                        id: task?._id,
+                        data: { status: "done" },
+                      })
+                    }
+                    title="Done"
+                  >
+                    <CheckIcon className="w-5 h-5 text-primary" />
+                  </button>
                 </div>
-              </>
+              </div>
             );
           })}
       </div>

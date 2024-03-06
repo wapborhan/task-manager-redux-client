@@ -1,11 +1,27 @@
 import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useUpdateStatusMutation } from "../../redux/features/tasks/taskApi";
+import {
+  useDeleteTaskMutation,
+  useUpdateStatusMutation,
+} from "../../redux/features/tasks/taskApi";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const TaskCard = ({ task }) => {
   // const dispatch = useDispatch();
   const [updateTask, { data, error }] = useUpdateStatusMutation();
+  const [deletePost] = useDeleteTaskMutation();
 
-  // console.log(data);
+  // console.log(isDeleting);
+
+  const handleTaskDelete = (id) => {
+    let text = "\n\nAre you confirm to delete?\n\n";
+    if (confirm(text) == true) {
+      deletePost(id);
+    } else {
+      text = "You canceled!";
+    }
+  };
+
   // console.log(error);
 
   let updatedStatus;
@@ -34,10 +50,7 @@ const TaskCard = ({ task }) => {
       <div className="flex justify-between mt-3">
         <p>Deadline: {task?.deadline}</p>
         <div className="flex gap-3">
-          <button
-            // onClick={() => dispatch(removeTask(task?.id))}
-            title="Delete"
-          >
+          <button onClick={() => handleTaskDelete(task?._id)} title="Delete">
             <TrashIcon className="h-5 w-5 text-white hover:text-black" />
           </button>
           <button

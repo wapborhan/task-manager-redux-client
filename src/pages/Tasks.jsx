@@ -1,23 +1,23 @@
 import { BellIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import MyTasks from "../components/tasks/MyTasks";
 import TaskCard from "../components/tasks/TaskCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/ui/Modal";
 import AdTaskForm from "../components/tasks/AdTaskForm";
 import { useSelector } from "react-redux";
 import MenuDropdown from "../components/ui/MenuDropdown";
 import { useGetTaskQuery } from "../redux/features/tasks/taskApi";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const Tasks = () => {
   let [isOpen, setIsOpen] = useState(false);
-  // const { task } = useSelector((state) => state.taskStore);
   const { data: task } = useGetTaskQuery(undefined, {
     // pollingInterval: 30000,
     // refetchOnMountOrArgChange: true,
     // refetchOnReconnect: true,
     // refetchOnFocus: true,
   });
+
   const { avatar } = useSelector((state) => state.userStore);
 
   const pendingTask = task?.filter((item) => item?.status === "pending");
