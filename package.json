@@ -14,6 +14,7 @@
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^2.2.1",
     "firebase": "^10.8.1",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",

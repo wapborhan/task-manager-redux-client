@@ -3,8 +3,7 @@ import {
   useDeleteTaskMutation,
   useUpdateStatusMutation,
 } from "../../redux/features/tasks/taskApi";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
+import moment from "moment";
 
 const TaskCard = ({ task }) => {
   // const dispatch = useDispatch();
@@ -21,8 +20,6 @@ const TaskCard = ({ task }) => {
       text = "You canceled!";
     }
   };
-
-  // console.log(error);
 
   let updatedStatus;
 
@@ -48,7 +45,7 @@ const TaskCard = ({ task }) => {
       <p className="mb-3">{task?.description}</p>
       <p className="text-sm">Assigned to - {task?.assignedTo}</p>
       <div className="flex justify-between mt-3">
-        <p>Deadline: {task?.deadline}</p>
+        <p>Deadline: {moment(task?.deadline).fromNow()}</p>
         <div className="flex gap-3">
           <button onClick={() => handleTaskDelete(task?._id)} title="Delete">
             <TrashIcon className="h-5 w-5 text-white hover:text-black" />
