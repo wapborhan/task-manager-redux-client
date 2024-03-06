@@ -4,7 +4,12 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 
 const AdTaskForm = ({ setIsOpen }) => {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const [setTask, { data, error }] = useAddTaskMutation();
 
@@ -41,9 +46,12 @@ const AdTaskForm = ({ setIsOpen }) => {
           <input
             type="text"
             id="title"
-            {...register("title")}
+            {...register("title", { required: true })}
             className="w-full rounded-md"
           />
+          {errors.title && (
+            <span className="text-red-500">* This field is required</span>
+          )}
         </div>
         <div className="flex flex-col mb-5">
           <label htmlFor="title" className="mb-2">
@@ -52,9 +60,12 @@ const AdTaskForm = ({ setIsOpen }) => {
           <textarea
             type="text"
             id="description"
-            {...register("description")}
+            {...register("description", { required: true })}
             className="w-full rounded-md"
           />
+          {errors.description && (
+            <span className="text-red-500">* This field is required</span>
+          )}
         </div>
         <div className="flex flex-col mb-5">
           <label htmlFor="title" className="mb-2">
@@ -63,9 +74,12 @@ const AdTaskForm = ({ setIsOpen }) => {
           <input
             type="date"
             id="deadline"
-            {...register("deadline")}
+            {...register("deadline", { required: true })}
             className="w-full rounded-md"
           />
+          {errors.deadline && (
+            <span className="text-red-500">* This field is required</span>
+          )}
         </div>
         <div className="flex flex-col mb-5">
           <label htmlFor="title" className="mb-2">
@@ -73,7 +87,7 @@ const AdTaskForm = ({ setIsOpen }) => {
           </label>
           <select
             id="priority"
-            {...register("assignedTo")}
+            {...register("assignedTo", { required: true })}
             className="w-full rounded-md"
           >
             <option defaultValue value="Borhan Uddin">
@@ -81,7 +95,10 @@ const AdTaskForm = ({ setIsOpen }) => {
             </option>
             <option value="Zihad Biswas">Zihad Biswas</option>
             <option value="Rabby Biswas">Rabby Biswas</option>
-          </select>
+          </select>{" "}
+          {errors.assignedTo && (
+            <span className="text-red-500">* This field is required</span>
+          )}
         </div>
         <div className="flex flex-col mb-5">
           <label htmlFor="title" className="mb-2">
@@ -89,7 +106,7 @@ const AdTaskForm = ({ setIsOpen }) => {
           </label>
           <select
             id="priority"
-            {...register("priority")}
+            {...register("priority", { required: true })}
             className="w-full rounded-md"
           >
             <option defaultValue value="high">
@@ -97,7 +114,10 @@ const AdTaskForm = ({ setIsOpen }) => {
             </option>
             <option value="medium">Medium</option>
             <option value="low">Low</option>
-          </select>
+          </select>{" "}
+          {errors.priority && (
+            <span className="text-red-500">* This field is required</span>
+          )}
         </div>
         <div className="flex gap-3 justify-end">
           <button onClick={onCancle} value="Add" className="btn btn-danger">

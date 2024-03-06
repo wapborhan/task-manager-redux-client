@@ -2,28 +2,43 @@ import {
   CheckIcon,
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useDispatch, useSelector } from "react-redux";
-import { updateStatus, userTask } from "../../redux/features/tasks/taskSlice";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 import Modal from "../ui/Modal";
 import TaskCard from "./TaskCard";
+import { useGetTaskQuery } from "../../redux/features/tasks/taskApi";
+import { useUpdateStatusMutation } from "../../redux/features/tasks/taskApi";
 
 const MyTasks = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTask, setModalTask] = useState(null);
-  const { task, specificTask } = useSelector((state) => state.taskStore);
+  const { data: task } = useGetTaskQuery();
   const { name } = useSelector((state) => state.userStore);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userTask(name));
-  }, [name, dispatch, task]);
+  const specificTask = task?.filter(
+    (task) => task?.assignedTo === name && task?.status === "pending"
+  );
 
   const handleModalOpen = (id) => {
-    const selectedTask = task.find((item) => item.id === id);
+    const selectedTask = task.find((item) => item?.id === id);
     setModalTask(selectedTask);
     setModalOpen(!modalOpen);
   };
+
+  const [updateTask, { data, error }] = useUpdateStatusMutation();
+
+  // console.log(data);
+  // console.log(error);
+
+  let updatedStatus;
+
+  if (task?.status === "pending") {
+    updatedStatus = "running";
+  } else if (task?.status === "running") {
+    updatedStatus = "done";
+  } else {
+    updatedStatus = "archive";
+  }
 
   return (
     <div>
@@ -32,36 +47,40 @@ const MyTasks = () => {
       </Modal>
       <h1 className="text-xl my-3">My Tasks</h1>
       <div className=" h-[750px] overflow-auto space-y-3">
-        {specificTask.map((task) => {
-          return (
-            <>
-              <div
-                key={task?.id}
-                className="bg-secondary/10 rounded-md p-3 flex justify-between"
-              >
-                <h1>{task?.title}</h1>
-                <div className="flex gap-3">
-                  <button
-                    className="grid place-content-center"
-                    onClick={() => handleModalOpen(task.id)}
-                    title="Details"
-                  >
-                    <DocumentMagnifyingGlassIcon className="w-5 h-5 text-primary" />
-                  </button>
-                  <button
-                    className="grid place-content-center"
-                    onClick={() =>
-                      dispatch(updateStatus({ id: task?.id, status: "done" }))
-                    }
-                    title="Done"
-                  >
-                    <CheckIcon className="w-5 h-5 text-primary" />
-                  </button>
+        {task &&
+          specificTask.map((task) => {
+            return (
+              <>
+                <div
+                  key={task?.id}
+                  className="bg-secondary/10 rounded-md p-3 flex justify-between"
+                >
+                  <h1>{task?.title}</h1>
+                  <div className="flex gap-3">
+                    <button
+                      className="grid place-content-center"
+                      onClick={() => handleModalOpen(task.id)}
+                      title="Details"
+                    >
+                      <DocumentMagnifyingGlassIcon className="w-5 h-5 text-primary" />
+                    </button>
+                    <button
+                      className="grid place-content-center"
+                      onClick={() =>
+                        updateTask({
+                          id: task?._id,
+                          data: { status: "done" },
+                        })
+                      }
+                      title="Done"
+                    >
+                      <CheckIcon className="w-5 h-5 text-primary" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
       </div>
     </div>
   );
